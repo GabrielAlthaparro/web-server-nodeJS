@@ -1,37 +1,31 @@
-require('dotenv').config();
-const express = require('express');
-const hbs = require('hbs');
+import dotenv from 'dotenv';
+import express from 'express';
+import hbs from 'hbs';
 
-const app = express();
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+dotenv.config()
+
 const port = process.env.PORT;
+const app = express();
 app.use(express.static('public'));
-
-// import path from 'path';
-// import { fileURLToPath } from 'url';
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
 
 // handlebars
 app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + '/views/common');
 
-
-// const index = (req, res)=>{
-//   res.sendFile( __dirname + '/public/backup/index.html');
-// };
-// const generic = (req, res)=>{
-//   res.sendFile( __dirname + '/public/backup/generic.html');
-// };
-// const elements = (req, res)=>{
-//   res.sendFile( __dirname + '/public/backup/elements.html');
-// };
-
 const index = (req, res)=>{
+  fileURLToPath(import.meta.url);
   if (req.url === '/index/'){
     res.redirect(301, "/");
     res.end();
   }
-  res.render('home');
+  res.write(import.meta.url + '\n');
+  res.end(fileURLToPath(import.meta.url));
+  // res.render('home');
 };
 const generic = (req, res)=>{
   if (req.url === '/generic/'){
