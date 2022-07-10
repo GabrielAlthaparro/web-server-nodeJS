@@ -31,7 +31,7 @@ app.get('/elements', elements); // por aca entra la url '/elements/'
 app.get('/elements.html', elements);
 
 app.get('*', (req, res) => {
-  res.sendFile(__dirname + '/public/404.html');
+  res.status(404).sendFile(__dirname + '/public/404.html');
 })
 
 app.listen(port);
